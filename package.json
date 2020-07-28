@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/paracasmo/casbot/issues"
   },
-  "homepage": "https://github.com/paracasmo/casbot#readme"
+  "homepage": "https://github.com/paracasmo/casbot#readme",
+  "dependencies": {
+    "winston": "^3.3.3"
+  }
 }
