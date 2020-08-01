@@ -1,3 +1,6 @@
+# local only files
+db.json
+
 # Logs
 logs
 *.log
