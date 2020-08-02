@@ -9,11 +9,7 @@ Learning project for node, modularization, es6+ (probably es8+ because async/awa
 - This is core, plugins are separate projects, actual bot is project using all projects
 - Unit testing + linting 💆
 
-## Possibly use...
-- Express (serve control center)
+## Possibly use in future...
 - Socketio (control.. control center)
-- Passportjs (Twitch auth because who wants deal with this crap)
-- Lowdb (throwaway db because who wants deal with THIS crap)
 - Mocha (unit tests)
-- Winston (logging)
 - Hyped UI library of the season (if I ever come round to actually using this thing)
