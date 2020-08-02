@@ -9,6 +9,7 @@ const cookieParser = require('cookie-parser')
 const cookieSession = require('cookie-session')
 const passport = require('passport')
 const twitchStrategy = require('@d-fischer/passport-twitch').Strategy
+const socketIo = require('socket.io')
 
 const authCallback = '/auth/twitch/callback'
 const authLoginPage = '/auth/twitch'
@@ -17,7 +18,7 @@ const noAuthPaths = [authLoginPage, authCallback, authFailPage]
 
 const logger = initLogger()
 initPassport()
-initExpress()
+initIo(socketIo(initExpress()))
 
 logger.info('Application started!')
 
@@ -61,7 +62,21 @@ function initExpress() {
     app.get(authCallback, passport.authenticate('twitch', { failureRedirect: authFailPage }), (req, res) => res.redirect('/'))
     app.get(authFailPage, (req, res) => res.send('Auth failed.'))
 
-    app.listen(config.port, () => logger.info(`Listening on ${config.baseUrl}:${config.port}`))
+    return app.listen(config.port, () => logger.info(`Listening on ${config.baseUrl}:${config.port}`))
+}
+
+function initIo(io) {
+    io.on('connection', (socket) => {
+        console.log('Socket connection established.')
+
+        socket.on('disconnect', () => console.log('Socket connection closed.'))
+        socket.on('frontend.greeting', (greeting) => {
+            logger.info(`Greeting from frontend: ${greeting}`)
+            socket.emit('backend.greeting', 'Y helo thar ;)')
+        })
+    })
+
+    logger.info(`Socket IO initalized.`)
 }
 
 function authorizer() {

@@ -1,9 +1,22 @@
 <html>
-    <head>
-        <title>Casbot Control Center 0.0.1</title>
-        <link rel="stylesheet" href="css/styles.css">
-    </head>
-    <body>
-        Hello, you are logged in 🤓
-    </body>
+
+<head>
+    <title>Casbot Control Center 0.0.1</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    Hello, you are logged in 🤓<br />
+    <br />
+    Why not send a nice message to the server? <button id="serverMsg">Go ahead.. </button><br />
+    <span id="answer"></span>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io()
+        socket.on('backend.greeting', (data) => document.querySelector('#answer').textContent = data)
+        document.querySelector('#serverMsg').addEventListener('click', () => socket.emit('frontend.greeting', 'Hello from the frontend :)'))
+    </script>
+</body>
+
 </html>
