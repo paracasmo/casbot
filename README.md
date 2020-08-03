@@ -10,6 +10,5 @@ Learning project for node, modularization, es6+ (probably es8+ because async/awa
 - Unit testing + linting 💆
 
 ## Possibly use in future...
-- Socketio (control.. control center)
 - Mocha (unit tests)
 - Hyped UI library of the season (if I ever come round to actually using this thing)
