@@ -1,12 +1,13 @@
-const path = require('path')
-const propertiesReader = require('properties-reader')
+'use strict';
+const path = require('path');
+const propertiesReader = require('properties-reader');
 
-const iniFilePath = path.join(__dirname, './app.ini')
+const iniFilePath = path.join(__dirname, './app.ini');
 let props;
 try {
-    props = propertiesReader(iniFilePath)
+    props = propertiesReader(iniFilePath);
 } catch (err) {
-    console.log(`Properties file not found. Create the following ini file your own values: ${iniFilePath}`)
+    console.log(`Properties file not found. Create the following ini file your own values: ${iniFilePath}`);
 }
 
 const config = {
@@ -15,27 +16,26 @@ const config = {
     admins: propArray('app.admins') || [],
     twitch: {
         clientID: prop('twitch.clientID') || '',
-        clientSecret: prop('twitch.clientSecret') || ''
+        clientSecret: prop('twitch.clientSecret') || '',
     },
     session: {
-        secret: prop('app.sessionSecret') || 'coolCasbotSessionSecret'
-    }
+        secret: prop('app.sessionSecret') || 'coolCasbotSessionSecret',
+    },
 
-}
+};
 
 function prop(prop) {
-    return props ? props.get(prop) : undefined
+    return props ? props.get(prop) : undefined;
 }
 
 function propArray(prop) {
-    let myProp = props ? props.get(prop) : undefined
+    let myProp = props ? props.get(prop) : undefined;
     if (!myProp)
-        return []
+        return [];
 
-    myProp = typeof myProp === 'string' ? myProp : myProp.toString()
+    myProp = typeof myProp === 'string' ? myProp : myProp.toString();
 
-    const delim = ','
-    return myProp.includes(delim) ? myProp.toString().split(delim) : [myProp]
+    return myProp.includes(',') ? myProp.split(',') : [myProp];
 }
 
-module.exports = config
+module.exports = config;
